@@ -27,12 +27,6 @@ const LoginPage: React.FC = () => {
             </Link>
           </p>
         </div>
-
-        <div className="mt-6 p-4 bg-gray-700 rounded text-sm text-gray-300">
-          <p className="font-semibold mb-2">Demo Credentials:</p>
-          <p>Email: admin@ors.com</p>
-          <p>Password: admin123</p>
-        </div>
       </div>
     </div>
   );

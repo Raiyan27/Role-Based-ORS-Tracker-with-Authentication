@@ -13,9 +13,6 @@ dotenv.config();
 const app: Application = express();
 const PORT = process.env.PORT || 5000;
 
-// Connect to MongoDB
-connectDB();
-
 // Middleware
 app.use(
   cors({
@@ -27,6 +24,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Health check route
+app.get("/", (req, res) => {
+  res.json({ status: "ok", message: "ORS Tracker API is running" });
+});
+
 app.get("/health", (req, res) => {
   res.json({ status: "ok", message: "Server is running" });
 });
@@ -40,8 +41,17 @@ app.use("/api/upload", uploadRoutes);
 app.use(notFound);
 app.use(errorHandler);
 
-app.listen(PORT, () => {
-  console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
-});
+// Connect to MongoDB (only in non-serverless environment)
+if (process.env.NODE_ENV !== "production") {
+  connectDB();
+  app.listen(PORT, () => {
+    console.log(
+      `Server running in ${process.env.NODE_ENV} mode on port ${PORT}`,
+    );
+  });
+} else {
+  // For serverless, connect on each request
+  connectDB();
+}
 
 export default app;

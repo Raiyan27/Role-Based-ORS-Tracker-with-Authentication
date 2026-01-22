@@ -1,66 +1,32 @@
-# ORS Tracker - Role-Based Vehicle Operational Roadworthiness System
+# ORS Tracker - Vehicle Operational Roadworthiness System
 
-A full-stack MERN application for tracking vehicle Operational Roadworthiness Scores (ORS) with JWT authentication and role-based access control.
+A full-stack MERN application for tracking vehicle Operational Roadworthiness Scores with role-based access control.
 
-## How to Run
+## Prerequisites
 
-### Backend
+- Node.js (v18 or higher)
+- MongoDB (local installation or MongoDB Atlas account)
+
+## Local Development Setup
+
+### 1. Clone and Install Dependencies
 
 ```bash
+# Navigate to project folder
+cd Role-Based-ORS-Tracker-with-Authentication
+
+# Install backend dependencies
 cd server
 npm install
-npm run dev
-```
 
-The server will start on `http://localhost:5000`
-
-### Frontend
-
-```bash
-cd client
-npm install
-npm run dev
-```
-
-The client will start on `http://localhost:5173`
-
-## Sample Credentials
-
-### Admin Account
-
-- **Email**: `admin@ors.com`
-- **Password**: `admin123`
-- **Permissions**: Full CRUD access to all ORS plans
-
-### Inspector Account
-
-- **Email**: `inspector@ors.com`
-- **Password**: `inspector123`
-- **Permissions**: Create ORS plans, edit/delete own plans only
-
-### Viewer Account
-
-- **Email**: `viewer@ors.com`
-- **Password**: `viewer123`
-- **Permissions**: Read-only access to all ORS plans
-
-2. **Install server dependencies**
-
-```bash
-cd server
-npm install
-```
-
-3. **Install client dependencies**
-
-```bash
+# Install frontend dependencies
 cd ../client
 npm install
 ```
 
-4. **Configure environment variables**
+### 2. Configure Environment Variables
 
-Server `.env`:
+**Backend** (`server/.env`):
 
 ```env
 PORT=5000
@@ -74,157 +40,60 @@ CLOUDINARY_API_KEY=your-cloud-api-key
 CLOUDINARY_API_SECRET=your-cloud-api-secret
 ```
 
-Client `.env`:
+**Frontend** (`client/.env`):
 
 ```env
 VITE_API_URL=http://localhost:5000/api
 ```
 
-5. **Start MongoDB**
-   Make sure MongoDB is running on your system.
-
-6. **Seed the database with admin user**
+### 3. Seed Database (First Time Only)
 
 ```bash
-cd server
+# From server directory
 npm run seed
 ```
 
-This creates:
+This creates 3 users and 5 sample ORS plans.
 
-- Email: `admin@ors.com`
-- Password: `admin123`
-- Role: `admin`
+### 4. Start Development Servers
 
-### Running the Application
-
-1. **Start the backend server** (from server directory):
+**Terminal 1 - Backend:**
 
 ```bash
+# From server directory
 npm run dev
 ```
 
-Server runs on http://localhost:5000
+Server runs on `http://localhost:5000`
 
-2. **Start the frontend client** (from client directory):
+**Terminal 2 - Frontend:**
 
 ```bash
+# From client directory
 npm run dev
 ```
 
-Client runs on http://localhost:5173
+Client runs on `http://localhost:5173`
 
-3. **Access the application**
+### 5. Login with Sample Credentials
 
-- Open http://localhost:5173 in your browser
-- Login with admin credentials or register a new user
+| Role          | Email             | Password     | Permissions                         |
+| ------------- | ----------------- | ------------ | ----------------------------------- |
+| **Admin**     | admin@ors.com     | admin123     | Full access to all ORS plans        |
+| **Inspector** | inspector@ors.com | inspector123 | Create plans, edit/delete own plans |
+| **Viewer**    | viewer@ors.com    | viewer123    | Read-only access                    |
 
-## User Roles & Permissions
+## Features
 
-### Admin
+- ✅ JWT Authentication & Authorization
+- ✅ Role-based Access Control (Admin, Inspector, Viewer)
+- ✅ CRUD Operations for ORS Plans
+- ✅ Dashboard with Analytics & Charts
+- ✅ File Upload Support (Cloudinary - optional)
+- ✅ Responsive Mobile UI
+- ✅ Real-time Data Updates
 
-- Full CRUD access to all ORS plans
-- Can view all statistics
-- Can edit/delete any plan
+## Tech Stack
 
-### Inspector
-
-- Can create new ORS plans
-- Can edit/delete only their own plans
-- Can view all plans and statistics
-
-### Viewer
-
-- Read-only access
-- Can view all plans and statistics
-- Cannot create, edit, or delete
-
-## API Endpoints
-
-### Authentication
-
-- `POST /api/auth/register` - Register new user
-- `POST /api/auth/login` - Login user
-- `GET /api/auth/me` - Get current user (protected)
-
-### ORS Management
-
-- `GET /api/ors` - Get all ORS plans (with optional filters)
-- `GET /api/ors/:id` - Get single ORS plan
-- `POST /api/ors` - Create ORS plan (Admin/Inspector)
-- `PUT /api/ors/:id` - Update ORS plan (Admin/Owner)
-- `DELETE /api/ors/:id` - Delete ORS plan (Admin/Owner)
-- `GET /api/ors/stats` - Get statistics
-
-## Project Structure
-
-```
-fb international/
-├── server/
-│   ├── src/
-│   │   ├── config/         # Database configuration
-│   │   ├── controllers/    # Request handlers
-│   │   ├── middleware/     # Auth, error handling
-│   │   ├── models/         # Mongoose schemas
-│   │   ├── routes/         # API routes
-│   │   ├── scripts/        # Seed scripts
-│   │   ├── services/       # Business logic
-│   │   ├── utils/          # Validators, helpers
-│   │   └── index.ts        # Entry point
-│   ├── .env
-│   └── package.json
-│
-├── client/
-│   ├── src/
-│   │   ├── components/     # Reusable UI components
-│   │   ├── context/        # React Context providers
-│   │   ├── features/       # Feature-based modules
-│   │   │   ├── auth/       # Authentication
-│   │   │   └── ors/        # ORS management
-│   │   ├── lib/            # API client, utilities
-│   │   ├── pages/          # Page components
-│   │   ├── types/          # TypeScript types
-│   │   ├── App.tsx         # Router setup
-│   │   └── main.tsx        # Entry point
-│   ├── .env
-│   └── package.json
-```
-
-## Key Features Explained
-
-### Score Color Coding
-
-- **Green** (≥80%): Good roadworthiness score
-- **Yellow** (60-79%): Moderate score, attention needed
-- **Red** (<60%): Poor score, immediate action required
-
-### Dynamic Forms
-
-- Add/remove text document entries dynamically
-- Form validation with Zod schemas
-- Optimistic updates for better UX
-
-### Dashboard Charts
-
-- Bar chart for traffic score distribution
-- Pie chart for grade breakdown
-- Real-time statistics cards
-
-## Development
-
-### Server Scripts
-
-```bash
-npm run dev      # Development mode with hot reload
-npm run build    # Build for production
-npm run start    # Start production server
-npm run seed     # Seed admin user
-```
-
-### Client Scripts
-
-```bash
-npm run dev      # Development mode
-npm run build    # Build for production
-npm run preview  # Preview production build
-```
+**Backend:** Node.js, Express, TypeScript, MongoDB, JWT  
+**Frontend:** React 19, TypeScript, Vite, TanStack Query, Tailwind CSS, Recharts

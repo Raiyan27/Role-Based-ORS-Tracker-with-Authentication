@@ -8,7 +8,7 @@ const RegisterPage: React.FC = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-900">
-      <div className="max-w-md w-full bg-gray-800 rounded-lg shadow-xl p-8">
+      <div className="max-w-md w-full bg-gray-800 rounded-lg shadow-xl p-8 mx-2">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-white mb-2">ORS Tracker</h1>
           <p className="text-gray-400">Create your account</p>

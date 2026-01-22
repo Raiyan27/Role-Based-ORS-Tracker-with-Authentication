@@ -233,7 +233,7 @@ export const ORSForm: React.FC<ORSFormProps> = ({
           <button
             type="button"
             onClick={() => append({ label: "", description: "" })}
-            className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md cursor-pointer"
+            className="flex items-center text-sm px-1 py-1 sm:text-base sm:gap-2 sm:px-4 sm:py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md cursor-pointer"
           >
             <Plus size={18} />
             Add Document
@@ -331,7 +331,7 @@ export const ORSForm: React.FC<ORSFormProps> = ({
             <label className="block text-sm font-medium text-gray-300 mb-2">
               {fileUploadsEnabled ? "Or Add URL" : "Add Attachment URL"}
             </label>
-            <div className="flex gap-2">
+            <div className="flex flex-col sm:flex-row gap-2">
               <input
                 type="text"
                 value={urlInput}
@@ -344,7 +344,7 @@ export const ORSForm: React.FC<ORSFormProps> = ({
                 type="button"
                 onClick={handleAddUrl}
                 disabled={!urlInput.trim() || isLoading}
-                className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-600 text-white rounded-md cursor-pointer"
+                className="flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-600 text-white rounded-md cursor-pointer"
               >
                 <LinkIcon size={18} />
                 Add

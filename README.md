@@ -68,6 +68,10 @@ MONGODB_URI=mongodb://localhost:27017/ors-tracker
 JWT_SECRET=your-super-secret-jwt-key-change-in-production
 JWT_EXPIRES_IN=7d
 NODE_ENV=development
+CLIENT_URL=http://localhost:5173
+CLOUDINARY_CLOUD_NAME=your-cloud-name
+CLOUDINARY_API_KEY=your-cloud-api-key
+CLOUDINARY_API_SECRET=your-cloud-api-secret
 ```
 
 Client `.env`:

@@ -25,12 +25,27 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 401) {
+    // Extract error message from server response
+    const message =
+      error.response?.data?.message ||
+      error.response?.data?.error ||
+      error.message ||
+      "An unexpected error occurred";
+
+    // Only redirect to login for 401 errors on protected routes, not during login/register
+    const isAuthRoute =
+      error.config?.url?.includes("/auth/login") ||
+      error.config?.url?.includes("/auth/register");
+
+    if (error.response?.status === 401 && !isAuthRoute) {
       localStorage.removeItem("token");
       localStorage.removeItem("user");
       window.location.href = "/login";
     }
-    return Promise.reject(error);
+
+    // Create a new error with the extracted message
+    const customError = new Error(message);
+    return Promise.reject(customError);
   },
 );
 
